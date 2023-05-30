@@ -1,24 +1,29 @@
-﻿using Domain;
+﻿using Application.DTOs;
+using Application.Services;
+using Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     public class ActivitiesController : BaseApiController
     {
-        public ActivitiesController() { }
+        private readonly IActivityService _activityService;
+        public ActivitiesController(IActivityService activityService)
+        {
+            _activityService = activityService;
+        }
 
         [HttpGet]
-        public async Task<ActionResult<List<Activity>>> GetActivities()
+        public async Task<ActionResult<List<ActivityDto>>> GetActivities()
         {
-            var activities = new List<Activity>();
-            return activities;
+            
+            return await _activityService.GetActivities(); ;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Activity>> GetById(Guid Id)
+        public async Task<ActionResult<ActivityDto>> GetById(Guid id)
         {
-            var activities = new List<Activity>();
-            return new Activity();
+            return await _activityService.GetActivity(id);
         }
     }
 }
