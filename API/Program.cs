@@ -1,5 +1,4 @@
-using API.Mappers;
-using Application.Services;
+using Application.Activities;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -16,8 +15,18 @@ builder.Services.AddDbContext<DataContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultCOnnection"));
 });
 
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowAnyOrigin();
+    });
+});
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(List.Handler).Assembly));
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
-builder.Services.AddScoped<IActivityService, ActivityService>();
 
 var app = builder.Build();
 
@@ -29,6 +38,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 

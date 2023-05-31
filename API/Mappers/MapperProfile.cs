@@ -8,7 +8,7 @@ namespace API.Mappers
     {
         public MapperProfile()
         {
-            CreateMap<Activity, ActivityDto>();
+            CreateMap<Activity, Activity>();
         }
     }
 }
