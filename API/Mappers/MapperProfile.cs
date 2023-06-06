@@ -1,5 +1,4 @@
-﻿using Application.DTOs;
-using AutoMapper;
+﻿using AutoMapper;
 using Domain;
 
 namespace API.Mappers
