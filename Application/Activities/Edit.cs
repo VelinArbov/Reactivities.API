@@ -40,8 +40,8 @@ public class Edit
             if (activity == null) return null;
 
             _mapper.Map(request.Activity, activity);
-            var result = await _context.SaveChangesAsync() > 1;
-            if (!result) return Result<Unit>.Failure("Failed to edit the activity.");
+            var result = await _context.SaveChangesAsync() > 0;
+            if (!result) return Result<Unit>.Failure("Failed to update activity.");
 
             return Result<Unit>.Success(Unit.Value);
         }
