@@ -14,10 +14,11 @@ public static class IdentityServiceExtensions
         services.AddIdentityCore<AppUser>(opt =>
             {
                 opt.Password.RequireNonAlphanumeric = false;
+                opt.User.RequireUniqueEmail = true;
             })
             .AddEntityFrameworkStores<DataContext>();
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(("0ea9ed8a-1bda-422b-8c28-ec28192d41d5f146d808-c499-4928-88cc-1a734b349d92")));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer((opt =>
