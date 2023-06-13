@@ -1,6 +1,8 @@
 ﻿using Application.Activities;
+using Application.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -33,6 +35,8 @@ public static class ApplicationServiceExtensions
         services.AddAutoMapper(typeof(Program).Assembly);
         services.AddFluentValidation();
         services.AddValidatorsFromAssemblyContaining<Create>();
+        services.AddHttpContextAccessor();
+        services.AddScoped<IUserAccessor, UserAccessor>();
 
         return services;
     }
