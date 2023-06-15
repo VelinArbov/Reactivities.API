@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Photos;
+using Microsoft.AspNetCore.Http;
 
-namespace Application.Interfaces
+namespace Application.Interfaces;
+
+public interface IPhotoAccessor
 {
-    internal interface Interface1
-    {
-    }
+    Task<PhotoUploadResult> AddPhoto(IFormFile file);
+    Task<string> Delete(string publicId);
 }
