@@ -9,7 +9,10 @@ namespace Application.Comments;
 
 public class List
 {
-    public class Query : IRequest<Result<List<CommentDto>>> { }
+    public class Query : IRequest<Result<List<CommentDto>>>
+    {
+        public Guid ActivityId { get; set; }
+    }
 
     public class Handler : IRequestHandler<Query, Result<List<CommentDto>>>
     {
@@ -24,11 +27,13 @@ public class List
 
         public async Task<Result<List<CommentDto>>> Handle(Query request, CancellationToken cancellationToken)
         {
-            var activities = await _context.Activities
+            var comments = await _context.Comments
+                .Where(x => x.Activity.Id == request.ActivityId)
+                .OrderByDescending(x=> x.CreatedAt)
                 .ProjectTo<CommentDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
-            return Result<List<CommentDto>>.Success(activities);
+            return Result<List<CommentDto>>.Success(comments);
         }
     }
 }
