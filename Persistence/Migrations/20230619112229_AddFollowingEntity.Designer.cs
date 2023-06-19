@@ -12,7 +12,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230619105129_AddFollowingEntity")]
+    [Migration("20230619112229_AddFollowingEntity")]
     partial class AddFollowingEntity
     {
         /// <inheritdoc />
@@ -391,13 +391,13 @@ namespace Persistence.Migrations
                     b.HasOne("Data.AppUser", "Observer")
                         .WithMany("Followings")
                         .HasForeignKey("ObserverId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Data.AppUser", "Target")
                         .WithMany("Followers")
                         .HasForeignKey("TargetId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Observer");
