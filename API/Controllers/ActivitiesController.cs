@@ -11,7 +11,7 @@ public class ActivitiesController : BaseApiController
     [HttpGet]
     public async Task<IActionResult> GetActivities([FromQuery]PagingParams pagingParams)
     {
-        return HandleResult(await Mediator.Send(new List.Query{Params = pagingParams}));
+        return HandlePagedResult(await Mediator.Send(new List.Query{Params = pagingParams}));
     }
 
     [HttpGet("{id}")]

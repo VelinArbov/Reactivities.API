@@ -1,4 +1,6 @@
-﻿using Application.Core;
+﻿using API.Extensions;
+using Application.Comments;
+using Application.Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +20,18 @@ namespace API.Controllers
             if (result == null) return NotFound();
             if (result.IsSuccess && result.Value != null)
                 return Ok(result.Value);
+            return result.IsSuccess && result.Value == null ? NotFound() : BadRequest();
+        }
+
+        protected ActionResult HandlePagedResult<T>(Result<PageList<T>> result)
+        {
+            if (result == null) return NotFound();
+            if (result.IsSuccess && result.Value != null)
+            {
+                Response.AddPaginationHeader(result.Value.CurrentPage, result.Value.PageSize, result.Value.TotalCount, result.Value.TotalCount);
+                return Ok(result.Value);
+            }
+
             return result.IsSuccess && result.Value == null ? NotFound() : BadRequest();
         }
     }
