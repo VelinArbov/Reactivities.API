@@ -4,8 +4,6 @@ using Application.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using Persistence;
 
 namespace Application.Activities;

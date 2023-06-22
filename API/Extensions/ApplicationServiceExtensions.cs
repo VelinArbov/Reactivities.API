@@ -19,7 +19,7 @@ public static class ApplicationServiceExtensions
         services.AddSwaggerGen();
         services.AddDbContext<DataContext>(opt =>
         {
-            opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
         });
 
         services.AddCors(opt =>
