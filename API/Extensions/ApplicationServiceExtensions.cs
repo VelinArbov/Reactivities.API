@@ -47,7 +47,7 @@ public static class ApplicationServiceExtensions
                 var pgPort = pgHostPort.Split(":")[1];
                 var updatedHost = pgHost.Replace("flycast", "internal");
 
-                connStr = $"Server={updatedHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};";
+                connStr = $"Server={updatedHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database=reactivities2023-db;";
             }
 
             // Whether the connection string came from the local development configuration file
